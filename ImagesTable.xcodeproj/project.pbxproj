@@ -13,6 +13,7 @@
 		E3A22EB722B4F71200B15A20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3A22EB622B4F71200B15A20 /* Assets.xcassets */; };
 		E3A22EBA22B4F71200B15A20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3A22EB822B4F71200B15A20 /* LaunchScreen.storyboard */; };
 		E3A22EBD22B4F71200B15A20 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E3A22EBC22B4F71200B15A20 /* main.m */; };
+		E3A22ECA22B4FC5400B15A20 /* ImageURLTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3A22EC922B4FC5400B15A20 /* ImageURLTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		E3A22EB922B4F71200B15A20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3A22EBB22B4F71200B15A20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3A22EBC22B4F71200B15A20 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E3A22EC822B4FC5400B15A20 /* ImageURLTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageURLTableViewCell.h; sourceTree = "<group>"; };
+		E3A22EC922B4FC5400B15A20 /* ImageURLTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageURLTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 		E3A22EAC22B4F70D00B15A20 /* ImagesTable */ = {
 			isa = PBXGroup;
 			children = (
+				E3A22EC622B4FC1800B15A20 /* Views */,
 				E3A22EAD22B4F70D00B15A20 /* AppDelegate.h */,
 				E3A22EAE22B4F70D00B15A20 /* AppDelegate.m */,
 				E3A22EC422B4F7D600B15A20 /* View Controllers */,
@@ -94,6 +98,23 @@
 			);
 			name = "ImageTableVíewController";
 			path = "ImageTableVíewController";
+			sourceTree = "<group>";
+		};
+		E3A22EC622B4FC1800B15A20 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E3A22EC722B4FC2500B15A20 /* ImageURLTableViewCell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E3A22EC722B4FC2500B15A20 /* ImageURLTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E3A22EC822B4FC5400B15A20 /* ImageURLTableViewCell.h */,
+				E3A22EC922B4FC5400B15A20 /* ImageURLTableViewCell.m */,
+			);
+			path = ImageURLTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +190,7 @@
 				E3A22EB222B4F70D00B15A20 /* ImageTableViewController.m in Sources */,
 				E3A22EBD22B4F71200B15A20 /* main.m in Sources */,
 				E3A22EAF22B4F70D00B15A20 /* AppDelegate.m in Sources */,
+				E3A22ECA22B4FC5400B15A20 /* ImageURLTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
