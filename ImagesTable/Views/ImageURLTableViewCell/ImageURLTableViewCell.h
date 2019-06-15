@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) UIImageView *centeredImageView;
 @property (weak, nonatomic) UILabel *imageURLLabel;
+@property (copy, nonatomic) NSString *urlString;
 
 @end
 

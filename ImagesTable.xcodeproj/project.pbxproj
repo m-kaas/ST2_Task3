@@ -14,6 +14,7 @@
 		E3A22EBA22B4F71200B15A20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3A22EB822B4F71200B15A20 /* LaunchScreen.storyboard */; };
 		E3A22EBD22B4F71200B15A20 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E3A22EBC22B4F71200B15A20 /* main.m */; };
 		E3A22ECA22B4FC5400B15A20 /* ImageURLTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3A22EC922B4FC5400B15A20 /* ImageURLTableViewCell.m */; };
+		E3A22ECE22B5273100B15A20 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3A22ECD22B5273100B15A20 /* ImageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		E3A22EBC22B4F71200B15A20 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E3A22EC822B4FC5400B15A20 /* ImageURLTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageURLTableViewCell.h; sourceTree = "<group>"; };
 		E3A22EC922B4FC5400B15A20 /* ImageURLTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageURLTableViewCell.m; sourceTree = "<group>"; };
+		E3A22ECC22B5273100B15A20 /* ImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		E3A22ECD22B5273100B15A20 /* ImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,9 +64,9 @@
 		E3A22EAC22B4F70D00B15A20 /* ImagesTable */ = {
 			isa = PBXGroup;
 			children = (
-				E3A22EC622B4FC1800B15A20 /* Views */,
 				E3A22EAD22B4F70D00B15A20 /* AppDelegate.h */,
 				E3A22EAE22B4F70D00B15A20 /* AppDelegate.m */,
+				E3A22EC622B4FC1800B15A20 /* Views */,
 				E3A22EC422B4F7D600B15A20 /* View Controllers */,
 				E3A22EC322B4F78D00B15A20 /* Resourses */,
 				E3A22EBC22B4F71200B15A20 /* main.m */,
@@ -85,6 +88,7 @@
 		E3A22EC422B4F7D600B15A20 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E3A22ECB22B526F400B15A20 /* ImageViewController */,
 				E3A22EC522B4F7E700B15A20 /* ImageTableVíewController */,
 			);
 			path = "View Controllers";
@@ -115,6 +119,15 @@
 				E3A22EC922B4FC5400B15A20 /* ImageURLTableViewCell.m */,
 			);
 			path = ImageURLTableViewCell;
+			sourceTree = "<group>";
+		};
+		E3A22ECB22B526F400B15A20 /* ImageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E3A22ECC22B5273100B15A20 /* ImageViewController.h */,
+				E3A22ECD22B5273100B15A20 /* ImageViewController.m */,
+			);
+			path = ImageViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3A22ECE22B5273100B15A20 /* ImageViewController.m in Sources */,
 				E3A22EB222B4F70D00B15A20 /* ImageTableViewController.m in Sources */,
 				E3A22EBD22B4F71200B15A20 /* main.m in Sources */,
 				E3A22EAF22B4F70D00B15A20 /* AppDelegate.m in Sources */,

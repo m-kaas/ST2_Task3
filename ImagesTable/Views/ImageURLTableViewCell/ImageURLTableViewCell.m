@@ -22,12 +22,18 @@ static void *ImageViewImageContext = &ImageViewImageContext;
     return self;
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.centeredImageView.image = [UIImage imageNamed:@"placeholderImage"];
+}
+
 - (void)setupCenteredImageView {
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"placeholderImage"]];
     [self.contentView addSubview:imageView];
     self.centeredImageView = imageView;
     [self.centeredImageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:ImageViewImageContext];
     self.centeredImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.centeredImageView.userInteractionEnabled = YES;
 }
 
 - (void)setupImageURLLabel {
@@ -76,6 +82,11 @@ static void *ImageViewImageContext = &ImageViewImageContext;
             [NSLayoutConstraint activateConstraints:@[[self.centeredImageView.heightAnchor constraintEqualToAnchor:self.centeredImageView.widthAnchor multiplier:aspectRatio]]];
         }
     }
+}
+
+- (void)setUrlString:(NSString *)urlString {
+    _urlString = [urlString copy];
+    self.imageURLLabel.text = _urlString;
 }
 
 - (void)dealloc
