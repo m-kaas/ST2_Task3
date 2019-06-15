@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ImageTableViewController.h
 //  ImagesTable
 //
 //  Created by Liubou Sakalouskaya on 6/15/19.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ImageTableViewController : UIViewController
 
 
 @end

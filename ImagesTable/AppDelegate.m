@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ImageTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    ImageTableViewController *imageTableVC = [ImageTableViewController new];
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:imageTableVC];
+    [self.window setRootViewController: navCon];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
