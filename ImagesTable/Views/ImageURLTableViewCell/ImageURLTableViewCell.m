@@ -29,11 +29,14 @@ static void *ImageViewImageContext = &ImageViewImageContext;
 
 - (void)setupCenteredImageView {
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"placeholderImage"]];
+    self.isImageLoaded = NO;
     [self.contentView addSubview:imageView];
     self.centeredImageView = imageView;
     [self.centeredImageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:ImageViewImageContext];
     self.centeredImageView.translatesAutoresizingMaskIntoConstraints = NO;
     self.centeredImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onImageViewTap:)];
+    [self.centeredImageView addGestureRecognizer:tap];
 }
 
 - (void)setupImageURLLabel {
@@ -50,7 +53,7 @@ static void *ImageViewImageContext = &ImageViewImageContext;
                                               [self.centeredImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:20],
                                               [self.centeredImageView.topAnchor constraintGreaterThanOrEqualToAnchor:self.imageURLLabel.topAnchor],
                                               [self.centeredImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-                                              [self.centeredImageView.widthAnchor constraintEqualToConstant:80],
+                                              [self.centeredImageView.widthAnchor constraintEqualToConstant:100],
                                               [self.centeredImageView.heightAnchor constraintEqualToAnchor:self.centeredImageView.widthAnchor multiplier:aspectRatio],
                                               [self.imageURLLabel.leadingAnchor constraintEqualToAnchor:self.centeredImageView.trailingAnchor constant:25],
                                               [self.contentView.trailingAnchor constraintEqualToAnchor:self.imageURLLabel.trailingAnchor constant:20],
@@ -87,6 +90,12 @@ static void *ImageViewImageContext = &ImageViewImageContext;
 - (void)setUrlString:(NSString *)urlString {
     _urlString = [urlString copy];
     self.imageURLLabel.text = _urlString;
+}
+
+- (void)onImageViewTap:(UITapGestureRecognizer *)tap {
+    if ([self.delegate respondsToSelector:@selector(didTapOnImageViewInCell:)]) {
+        [self.delegate didTapOnImageViewInCell:self];
+    }
 }
 
 - (void)dealloc

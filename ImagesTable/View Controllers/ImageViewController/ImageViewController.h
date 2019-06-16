@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ImageViewController : UIViewController
 
+@property (strong, nonatomic) UIImage *image;
+
 @end
 
 NS_ASSUME_NONNULL_END
