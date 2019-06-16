@@ -7,6 +7,7 @@
 //
 
 #import "ImageViewController.h"
+#import "ImageURLTableViewCell.h"
 
 @interface ImageViewController ()
 
@@ -15,6 +16,8 @@
 @end
 
 @implementation ImageViewController
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,6 +29,13 @@
     [self setupImageView];
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Private
+
 - (void)setupImageView {
     UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
     [self.view addSubview:imageView];
@@ -36,6 +46,14 @@
         [self.imageView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:10],
         [self.view.safeAreaLayoutGuide.trailingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:10],
         [self.view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:10]]];
+}
+
+#pragma mark - Notifications
+
+- (void)imageChanged:(NSNotification *)notification {
+    ImageURLTableViewCell *cell = notification.object;
+    self.image = cell.centeredImageView.image;
+    self.imageView.image = self.image;
 }
 
 @end

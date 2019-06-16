@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) UIImage *image;
 
+- (void)imageChanged:(NSNotification *)notification;
+
 @end
 
 NS_ASSUME_NONNULL_END
