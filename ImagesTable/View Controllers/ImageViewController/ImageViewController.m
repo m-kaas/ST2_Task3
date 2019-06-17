@@ -52,6 +52,9 @@
 
 - (void)imageChanged:(NSNotification *)notification {
     ImageURLTableViewCell *cell = notification.object;
+    if (cell.didFailedLoadingImage) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
     self.image = cell.centeredImageView.image;
     self.imageView.image = self.image;
 }

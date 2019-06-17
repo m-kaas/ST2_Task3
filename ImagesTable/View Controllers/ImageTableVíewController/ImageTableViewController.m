@@ -64,7 +64,7 @@ NSString * const cellReuseId = @"cellReuseId";
     self.imagesTableView.delegate = self;
     self.imagesTableView.dataSource = self;
     [self.imagesTableView registerClass:[ImageURLTableViewCell class] forCellReuseIdentifier:cellReuseId];
-    self.imagesTableView.estimatedRowHeight = 250;
+    self.imagesTableView.estimatedRowHeight = 200;
     self.imagesTableView.tableFooterView = [UIView new];
     self.imagesTableView.allowsSelection = NO;
 }
@@ -79,14 +79,14 @@ NSString * const cellReuseId = @"cellReuseId";
             if (loadedImage) {
                 [self.imageCache setObject:loadedImage forKey:stringURL];
                 if ([cell.urlString isEqualToString:stringURL]) {
-                    cell.centeredImageView.image = loadedImage;
                     cell.isImageLoaded = YES;
+                    cell.centeredImageView.image = loadedImage;
                 }
             } else {
                 if ([cell.urlString isEqualToString:stringURL]) {
-                    cell.imageURLLabel.text = @"Error: connection timed out (at least I think so)";
-                    cell.centeredImageView.image = [UIImage imageNamed:@"reloadImage"];
                     cell.didFailedLoadingImage = YES;
+                    cell.centeredImageView.image = [UIImage imageNamed:@"reloadImage"];
+                    cell.imageURLLabel.text = @"Error: connection timed out (at least I think so)";
                 }
             }
         });
