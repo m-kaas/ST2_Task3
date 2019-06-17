@@ -22,6 +22,7 @@
 @property (weak, nonatomic) UILabel *imageURLLabel;
 @property (copy, nonatomic) NSString *urlString;
 @property (assign, nonatomic) BOOL isImageLoaded;
+@property (assign, nonatomic) BOOL didFailedLoadingImage;
 @property (weak, nonatomic) id<ImageURLTableViewCellDelegate> delegate;
 
 @end

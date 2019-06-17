@@ -62,6 +62,30 @@ NSString * const cellReuseId = @"cellReuseId";
     self.imagesTableView.allowsSelection = NO;
 }
 
+- (void)loadNewImageWithURL:(NSString *)stringURL forCell:(ImageURLTableViewCell *)cell {
+    dispatch_queue_t utilityQueue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0);
+    dispatch_async(utilityQueue, ^{
+        NSURL *url = [NSURL URLWithString:stringURL];
+        NSData *imageData = [NSData dataWithContentsOfURL:url];
+        UIImage *loadedImage = [UIImage imageWithData:imageData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (loadedImage) {
+                [self.imageCache setObject:loadedImage forKey:stringURL];
+                if ([cell.urlString isEqualToString:stringURL]) {
+                    cell.centeredImageView.image = loadedImage;
+                    cell.isImageLoaded = YES;
+                }
+            } else {
+                if ([cell.urlString isEqualToString:stringURL]) {
+                    cell.imageURLLabel.text = @"Error: connection timed out (at least I think so)";
+                    cell.centeredImageView.image = [UIImage imageNamed:@"reloadImage"];
+                    cell.didFailedLoadingImage = YES;
+                }
+            }
+        });
+    });
+}
+
 #pragma mark - UITableViewDelegate
 
 
@@ -83,27 +107,7 @@ NSString * const cellReuseId = @"cellReuseId";
         cell.centeredImageView.image = image;
         cell.isImageLoaded = YES;
     } else {
-        dispatch_queue_t utilityQueue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0);
-        dispatch_async(utilityQueue, ^{
-            NSURL *url = [NSURL URLWithString:stringURL];
-            NSData *imageData = [NSData dataWithContentsOfURL:url];
-            UIImage *loadedImage = [UIImage imageWithData:imageData];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (loadedImage) {
-                    [self.imageCache setObject:loadedImage forKey:stringURL];
-                    if ([cell.urlString isEqualToString:stringURL]) {
-                        cell.centeredImageView.image = loadedImage;
-                        cell.isImageLoaded = YES;
-//                        [tableView beginUpdates];
-//                        [tableView endUpdates];
-                    }
-                } else {
-                    if ([cell.urlString isEqualToString:stringURL]) {
-                        cell.imageURLLabel.text = @"Error: connection timed out (at least I think so)";
-                    }
-                }
-            });
-        });
+        [self loadNewImageWithURL:stringURL forCell:cell];
     }
     return cell;
 }
@@ -111,13 +115,17 @@ NSString * const cellReuseId = @"cellReuseId";
 #pragma mark - ImageURLTableViewCellDelegate
 
 - (void)didTapOnImageViewInCell:(ImageURLTableViewCell *)cell {
+    NSIndexPath *indexPath = [self.imagesTableView indexPathForCell:cell];
     ImageViewController *imageVC = [ImageViewController new];
-    if (cell.isImageLoaded) {
+    if (cell.didFailedLoadingImage) {
+        [self.imagesTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        return;
+    } else if (cell.isImageLoaded) {
         imageVC.image = cell.centeredImageView.image;
     } else {
         [[NSNotificationCenter defaultCenter] addObserver:imageVC selector:@selector(imageChanged:) name:@"ImageURLTableViewCellImageChanged" object:cell];
     }
-    self.tappedRowIndexPath = [self.imagesTableView indexPathForCell:cell];
+    self.tappedRowIndexPath = indexPath;
     [self.navigationController pushViewController:imageVC animated:YES];
 }
 

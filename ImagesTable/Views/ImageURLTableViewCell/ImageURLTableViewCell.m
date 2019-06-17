@@ -31,6 +31,7 @@ static void *ImageViewImageContext = &ImageViewImageContext;
     [super prepareForReuse];
     self.centeredImageView.image = [UIImage imageNamed:@"placeholderImage"];
     self.isImageLoaded = NO;
+    self.didFailedLoadingImage = NO;
 }
 
 - (void)setupCenteredImageView {
@@ -61,7 +62,7 @@ static void *ImageViewImageContext = &ImageViewImageContext;
               [self.centeredImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:20],
               [self.centeredImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
               [self.centeredImageView.widthAnchor constraintEqualToConstant:100],
-              [self.contentView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.centeredImageView.heightAnchor multiplier:1.0 constant:20],
+              [self.contentView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.centeredImageView.heightAnchor multiplier:1.0 constant:40],
               [self.imageURLLabel.leadingAnchor constraintEqualToAnchor:self.centeredImageView.trailingAnchor constant:25],
               [self.imageURLLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:20],
               [self.contentView.trailingAnchor constraintEqualToAnchor:self.imageURLLabel.trailingAnchor constant:20],
