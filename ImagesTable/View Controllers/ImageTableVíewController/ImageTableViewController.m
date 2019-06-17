@@ -37,7 +37,14 @@ NSString * const cellReuseId = @"cellReuseId";
 
 - (void)viewWillAppear:(BOOL)animated {
     if (self.tappedRowIndexPath) {
-        [self.imagesTableView scrollToRowAtIndexPath:self.tappedRowIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        [self.imagesTableView scrollToRowAtIndexPath:self.tappedRowIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
+}
+
+- (void)viewDidLayoutSubviews {
+    if (self.tappedRowIndexPath) {
+        [self.imagesTableView scrollToRowAtIndexPath:self.tappedRowIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        self.tappedRowIndexPath = nil;
     }
 }
 

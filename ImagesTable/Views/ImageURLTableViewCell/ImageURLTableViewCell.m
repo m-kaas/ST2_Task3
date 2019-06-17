@@ -66,7 +66,7 @@ static void *ImageViewImageContext = &ImageViewImageContext;
               [self.imageURLLabel.leadingAnchor constraintEqualToAnchor:self.centeredImageView.trailingAnchor constant:25],
               [self.imageURLLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:20],
               [self.contentView.trailingAnchor constraintEqualToAnchor:self.imageURLLabel.trailingAnchor constant:20],
-              [self.contentView.bottomAnchor constraintGreaterThanOrEqualToAnchor:self.imageURLLabel.bottomAnchor constant:20]
+              [self.contentView.bottomAnchor constraintEqualToAnchor:self.imageURLLabel.bottomAnchor constant:20]
               ]];
         self.didSetupConstraints = YES;
     } else {
