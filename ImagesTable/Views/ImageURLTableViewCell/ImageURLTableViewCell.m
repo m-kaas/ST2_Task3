@@ -10,6 +10,12 @@
 
 static void *ImageViewImageContext = &ImageViewImageContext;
 
+@interface ImageURLTableViewCell ()
+
+@property (assign, nonatomic) BOOL didSetupConstraints;
+
+@end
+
 @implementation ImageURLTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -17,7 +23,6 @@ static void *ImageViewImageContext = &ImageViewImageContext;
     if (self) {
         [self setupCenteredImageView];
         [self setupImageURLLabel];
-        [self setupConstraints];
     }
     return self;
 }
@@ -46,22 +51,35 @@ static void *ImageViewImageContext = &ImageViewImageContext;
     self.imageURLLabel = label;
     self.imageURLLabel.numberOfLines = 0;
     self.imageURLLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.imageURLLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh+1 forAxis:UILayoutConstraintAxisVertical];
 }
 
-- (void)setupConstraints {
+- (void)updateConstraints {
+    [super updateConstraints];
+    if (!self.didSetupConstraints) {
+        [NSLayoutConstraint activateConstraints:@[
+              [self.centeredImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:20],
+              [self.centeredImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+              [self.centeredImageView.widthAnchor constraintEqualToConstant:100],
+              [self.contentView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.centeredImageView.heightAnchor multiplier:1.0 constant:20],
+              [self.imageURLLabel.leadingAnchor constraintEqualToAnchor:self.centeredImageView.trailingAnchor constant:25],
+              [self.imageURLLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:20],
+              [self.contentView.trailingAnchor constraintEqualToAnchor:self.imageURLLabel.trailingAnchor constant:20],
+              [self.contentView.bottomAnchor constraintGreaterThanOrEqualToAnchor:self.imageURLLabel.bottomAnchor constant:20]
+              ]];
+        self.didSetupConstraints = YES;
+    } else {
+        for (NSLayoutConstraint *constraint in self.centeredImageView.constraints) {
+            if ([constraint.firstAnchor isEqual:self.centeredImageView.heightAnchor] && [constraint.secondAnchor isEqual:self.centeredImageView.widthAnchor]) {
+                [self.centeredImageView removeConstraint:constraint];
+                break;
+            }
+        }
+    }
     CGFloat aspectRatio = self.centeredImageView.image.size.height / self.centeredImageView.image.size.width;
-    [NSLayoutConstraint activateConstraints:@[
-                                              [self.centeredImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:20],
-                                              [self.centeredImageView.topAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.topAnchor constant:20],
-                                              [self.centeredImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-                                              [self.centeredImageView.widthAnchor constraintEqualToConstant:100],
-                                              [self.centeredImageView.heightAnchor constraintEqualToAnchor:self.centeredImageView.widthAnchor multiplier:aspectRatio],
-                                              [self.contentView.bottomAnchor constraintGreaterThanOrEqualToAnchor:self.centeredImageView.bottomAnchor constant:20],
-                                              [self.imageURLLabel.leadingAnchor constraintEqualToAnchor:self.centeredImageView.trailingAnchor constant:25],
-                                              [self.imageURLLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:20],
-                                              [self.contentView.trailingAnchor constraintEqualToAnchor:self.imageURLLabel.trailingAnchor constant:20],
-                                              [self.contentView.bottomAnchor constraintEqualToAnchor:self.imageURLLabel.bottomAnchor constant:20]
-                                              ]];
+    NSLayoutConstraint *aspectRatioConstraint = [self.centeredImageView.heightAnchor constraintEqualToAnchor:self.centeredImageView.widthAnchor multiplier:aspectRatio];
+    aspectRatioConstraint.priority = 999;
+    [NSLayoutConstraint activateConstraints:@[aspectRatioConstraint]];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -72,22 +90,11 @@ static void *ImageViewImageContext = &ImageViewImageContext;
         CGFloat aspectRatioOld = oldImageView.size.height / oldImageView.size.width;
         CGFloat aspectRatioNew = newImageView.size.height / newImageView.size.width;
         if (aspectRatioNew != aspectRatioOld) {
-            [self updateImageAspectRatioConstraint];
+            [self setNeedsUpdateConstraints];
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ImageURLTableViewCellImageChanged" object:self];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
-
-//TODO: fix height constraints
-- (void)updateImageAspectRatioConstraint {
-    CGFloat aspectRatio = self.centeredImageView.image.size.height / self.centeredImageView.image.size.width;
-    for (NSLayoutConstraint *constraint in self.centeredImageView.constraints) {
-        if ([constraint.firstAnchor isEqual:self.centeredImageView.heightAnchor] && [constraint.secondAnchor isEqual:self.centeredImageView.widthAnchor]) {
-            [self.centeredImageView removeConstraint:constraint];
-            [NSLayoutConstraint activateConstraints:@[[self.centeredImageView.heightAnchor constraintEqualToAnchor:self.centeredImageView.widthAnchor multiplier:aspectRatio]]];
-        }
     }
 }
 

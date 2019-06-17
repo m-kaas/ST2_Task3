@@ -17,6 +17,7 @@ NSString * const cellReuseId = @"cellReuseId";
 @property (weak, nonatomic) UITableView *imagesTableView;
 @property (copy, nonatomic) NSArray *imageURLs;
 @property (strong, nonatomic) NSCache *imageCache;
+@property (strong, nonatomic) NSIndexPath *tappedRowIndexPath;
 
 @end
 
@@ -32,6 +33,12 @@ NSString * const cellReuseId = @"cellReuseId";
     self.imageCache = [NSCache new];
     self.imageURLs = @[@"https://sun1-20.userapi.com/c836137/v836137037/4d4c3/59O1-wHWWZQ.jpg", @"https://pp.userapi.com/c543103/v543103522/30526/3C1ihzj8d40.jpg", @"http://lookw.ru/1/519/1402242533-009.jpg", @"https://pp.userapi.com/c543103/v543103522/3052f/axm4Rf9YVFc.jpg", @"https://pp.userapi.com/c543103/v543103522/30538/RCE3LjS-W6o.jpg", @"https://pp.userapi.com/c543103/v543103522/30f04/nfHoWCKAEmw.jpg", @"https://pp.userapi.com/c543103/v543103522/30efb/oU-z5R0uICo.jpg", @"http://lookw.ru/1/519/1402242484-064.jpg", @"https://pp.userapi.com/c543103/v543103522/30ef2/qAdoaLDAjgs.jpg", @"https://pp.userapi.com/c543101/v543101522/28e4a/ifD0qQucd0A.jpg", @"https://sun1-86.userapi.com/c543101/v543101522/28e30/zwL_FvlVHPE.jpg", @"https://pp.userapi.com/c836137/v836137037/4d4cd/B_EPRGbXXzg.jpg",@"https://pp.userapi.com/c543101/v543101522/28e53/W97gjCGkqL0.jpg",  @"http://lookw.ru/1/519/1402242453-065.jpg", @"https://sun9-1.userapi.com/c836137/v836137037/4d4d7/K9q1JZbIM0I.jpg", @"https://pp.userapi.com/c836137/v836137037/4d4e1/82qkXuvA4YQ.jpg", @"https://pp.userapi.com/c543100/v543100522/273b6/lAvtgEoKZL8.jpg", @"http://lookw.ru/1/519/1402242501-066.jpg", @"https://pp.userapi.com/c543100/v543100522/273be/zL1noyD7n_A.jpg", @"https://pp.userapi.com/c543100/v543100522/273c6/I0x7aodqbDY.jpg", @"https://pp.userapi.com/c543103/v543103522/2e1a9/ZpWpu5LmhTA.jpg", @"http://lookw.ru/1/519/1402242480-033.jpg", @"https://sun1-29.userapi.com/c543103/v543103522/2e1a1/7HWelc2m-ig.jpg", @"https://pp.userapi.com/c543103/v543103522/2e171/LGcMARWD_I4.jpg", @"http://lookw.ru/1/519/1402242520-013.jpg", @"https://pp.userapi.com/c543103/v543103522/2e191/dROgZeOhpQY.jpg", @"https://pp.userapi.com/c543103/v543103522/2e199/I_fIb15xB9w.jpg", @"https://sun1-29.userapi.com/c543103/v543103522/2e181/gq96dSgcSzQ.jpg", @"http://lookw.ru/1/519/1402242457-099.jpg", @"https://sun1.beltelecom-by-minsk.userapi.com/c543101/v543101522/2a01b/ygFyNZGhxAk.jpg", @"https://pp.userapi.com/c543108/v543108172/dd65/5Du7h4JVMUA.jpg", @"http://lookw.ru/1/519/1402242510-002.jpg", @"https://pp.userapi.com/c543108/v543108554/1502b/rjVqePYOI4Y.jpg", @"https://pp.userapi.com/c543101/v543101787/36813/ObltXsSC2oE.jpg", @"https://pp.userapi.com/c543101/v543101833/19bf1/S8tEAL7xRmg.jpg", @"https://pp.userapi.com/c543101/v543101787/3681c/AYaVZ7Xam4g.jpg", @"http://lookw.ru/1/519/1402242476-001.jpg",  @"https://pp.userapi.com/wO3RGr8Abl6XBoa72TpRG1CQFbT5h8F792Cfdw/g9N2NNp7Oo4.jpg", @"https://pp.userapi.com/c636825/v636825533/b15a/QNLNBLCVRx0.jpg", @"http://cs543101.vk.me/v543101702/c495/j3v-FCLx2-c.jpg", @"http://lookw.ru/1/519/1402242468-042.jpg", @"http://cs543101.vk.me/v543101702/c4af/oRxmqE6Z-G0.jpg", @"https://pp.userapi.com/c543100/v543100522/292a4/eWc4I4pg6oU.jpg", @"https://sun1.beltelecom-by-minsk.userapi.com/c543100/v543100522/29292/9ajVJbJOriM.jpg", @"https://pp.userapi.com/c543100/v543100522/29289/Lfopu2o59FQ.jpg", @"http://lookw.ru/1/519/1402242474-007.jpg", @"https://sun1.beltelecom-by-minsk.userapi.com/c543100/v543100522/2929b/Y7-yiL21odc.jpg", @"https://sun2.beltelecom-by-minsk.userapi.com/c543103/v543103522/21ff7/6SRmo_fHRV8.jpg", @"http://lookw.ru/1/519/1402242539-008.jpg", @"https://sun1.beltelecom-by-minsk.userapi.com/c543103/v543103522/21fee/I7086MVXdZ8.jpg", @"https://pp.userapi.com/c543103/v543103522/21fe5/fslXjzZU4GU.jpg", @"http://lookw.ru/1/519/1402242543-073.jpg", @"https://pp.userapi.com/c543103/v543103522/22000/Z-baKP-ZVL0.jpg", @"https://pp.userapi.com/c543103/v543103522/21fd3/KdyvF6rEYm4.jpg", @"https://pp.userapi.com/c543103/v543103522/21fdc/hkZVRrUkmBw.jpg", @"http://lookw.ru/1/519/1402242469-045.jpg", @"https://pp.userapi.com/c849428/v849428683/f7ec5/dH1y20Yf58U.jpg", @"https://pp.userapi.com/c845216/v845216622/173480/5D3y0WwC6Rs.jpg", @"http://lookw.ru/1/519/1402242490-006.jpg", @"http://lookw.ru/1/519/1402242556-014.jpg"];
     [self setupTableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if (self.tappedRowIndexPath) {
+        [self.imagesTableView scrollToRowAtIndexPath:self.tappedRowIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 #pragma mark - Private
@@ -70,14 +77,11 @@ NSString * const cellReuseId = @"cellReuseId";
     cell.delegate = self;
     NSString *stringURL = self.imageURLs[indexPath.row];
     cell.urlString = stringURL;
-    //[tableView beginUpdates];
-    //[tableView endUpdates];
+    [cell setNeedsUpdateConstraints];
     UIImage *image = [self.imageCache objectForKey:stringURL];
     if (image) {
         cell.centeredImageView.image = image;
         cell.isImageLoaded = YES;
-        //[tableView beginUpdates];
-        //[tableView endUpdates];
     } else {
         dispatch_queue_t utilityQueue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0);
         dispatch_async(utilityQueue, ^{
@@ -90,11 +94,13 @@ NSString * const cellReuseId = @"cellReuseId";
                     if ([cell.urlString isEqualToString:stringURL]) {
                         cell.centeredImageView.image = loadedImage;
                         cell.isImageLoaded = YES;
-                        //[tableView beginUpdates];
-                        //[tableView endUpdates];
+//                        [tableView beginUpdates];
+//                        [tableView endUpdates];
                     }
                 } else {
-                    cell.imageURLLabel.text = @"Error: connection timed out (at least I think so)";
+                    if ([cell.urlString isEqualToString:stringURL]) {
+                        cell.imageURLLabel.text = @"Error: connection timed out (at least I think so)";
+                    }
                 }
             });
         });
@@ -111,6 +117,7 @@ NSString * const cellReuseId = @"cellReuseId";
     } else {
         [[NSNotificationCenter defaultCenter] addObserver:imageVC selector:@selector(imageChanged:) name:@"ImageURLTableViewCellImageChanged" object:cell];
     }
+    self.tappedRowIndexPath = [self.imagesTableView indexPathForCell:cell];
     [self.navigationController pushViewController:imageVC animated:YES];
 }
 
