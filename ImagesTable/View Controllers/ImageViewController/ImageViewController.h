@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ImageViewController : UIViewController
 
+@property (copy, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) UIImage *image;
 
 - (void)imageChanged:(NSNotification *)notification;

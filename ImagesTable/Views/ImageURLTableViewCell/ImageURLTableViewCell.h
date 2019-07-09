@@ -20,9 +20,7 @@
 
 @property (weak, nonatomic) UIImageView *centeredImageView;
 @property (weak, nonatomic) UILabel *imageURLLabel;
-@property (copy, nonatomic) NSString *urlString;
-@property (assign, nonatomic) BOOL isImageLoaded;
-@property (assign, nonatomic) BOOL didFailedLoadingImage;
+@property (copy, nonatomic) NSString *imageURL;
 @property (weak, nonatomic) id<ImageURLTableViewCellDelegate> delegate;
 
 @end

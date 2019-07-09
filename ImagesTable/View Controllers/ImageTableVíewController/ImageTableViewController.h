@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ImageTableViewController : UIViewController
+extern NSString * const imageNotificationImageKey;
+extern NSString * const imageNotificationIsImageLoadedKey;
 
+@interface ImageTableViewController : UIViewController
 
 @end
 

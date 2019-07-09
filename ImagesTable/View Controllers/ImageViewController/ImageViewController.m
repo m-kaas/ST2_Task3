@@ -7,7 +7,7 @@
 //
 
 #import "ImageViewController.h"
-#import "ImageURLTableViewCell.h"
+#import "ImageTableViewController.h"
 
 @interface ImageViewController ()
 
@@ -25,6 +25,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     if (!self.image) {
         self.image = [UIImage imageNamed:@"placeholderImage"];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageChanged:) name:self.imageURL object:nil];
     }
     [self setupImageView];
 }
@@ -51,11 +52,10 @@
 #pragma mark - Notifications
 
 - (void)imageChanged:(NSNotification *)notification {
-    ImageURLTableViewCell *cell = notification.object;
-    if (cell.didFailedLoadingImage) {
+    if (![[notification.userInfo objectForKey:imageNotificationIsImageLoadedKey] boolValue]) {
         [self.navigationController popViewControllerAnimated:YES];
     }
-    self.image = cell.centeredImageView.image;
+    self.image = [notification.userInfo objectForKey:imageNotificationImageKey];
     self.imageView.image = self.image;
 }
 
